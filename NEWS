@@ -1,9 +1,6 @@
-<<<<<<< HEAD
 Changes in version 1.11.1:
 + "prior_precision" function made faster (prior computation based on a sub-set of the genes only)
 
-=======
->>>>>>> upstream/master
 Changes in version 1.4.1:
 + parallel::makeCluster() updated to "sequential" strategy; default strategy gets stuck with RStudio on macOS with R 4.x.
 
