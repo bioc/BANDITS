@@ -112,6 +112,12 @@ create_data = function(salmon_or_kallisto,
     return(NULL)
   }
   
+  if( length(eff_len) != length(names(eff_len)) ){
+    message("All transcripts in 'eff_len' must be named (see 'names(eff_len)').")
+    message("Note that 'eff_len' object is named when returned by 'eff_len_compute' function.")
+    return(NULL)
+  }
+  
   if( !all( names(eff_len) %in% gene_to_transcript[,2])  ){
     message("All transcript names in 'names(eff_len)' must be in 'gene_to_transcript[,2]'")
     return(NULL)
