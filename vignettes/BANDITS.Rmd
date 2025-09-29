@@ -3,9 +3,8 @@ title: "BANDITS: Bayesian ANalysis of DIfferenTial Splicing"
 author:
 - name: Simone Tiberi
   affiliation:
-  - &IMLS Institute for Molecular Life Sciences, University of Zurich, Switzerland
-  - &SIB SIB Swiss Institute of Bioinformatics, University of Zurich, Switzerland
-  email: simone.tiberi@uzh.ch
+  - &Stats Department of Statistical Sciences, University of Bologna, Italy
+  email: simone.tiberi@unibo.it
 package: "`r BiocStyle::pkg_ver('BANDITS')`"
 date: "`r format(Sys.Date(), '%m/%d/%Y')`"
 bibliography: References.bib
@@ -77,7 +76,7 @@ devtools::install_github("SimoneTiberi/BANDITS",
 The package inputs the equivalence classes and respective counts.
 These can be obtained by aligning reads either directly to a reference transcriptome with pseudo-alignmers, via *salmon* [@salmon] or *kallisto* [@kallisto], or to a reference genome with splice-aware genome alignment algorithms, via *STAR* [@STAR], and checking the transcripts compatible with each genome alignment with *salmon*.
 
-NOTE: when using *salmon*, use the option `--dumpEq` to obtain the equivalence classes, when using *STAR*, use the option `--quantMode TranscriptomeSAM` to obtain alignments translated into transcript coordinates, and when using *kallisto*, run both `kallisto quant` and `kallisto pseudo` to obtain the transcript estimated counts and equivalence classes, respectively.
+NOTE: when using *salmon*, use the option `--dumpEq` to obtain the equivalence classes, when using *STAR*, use the option `--quantMode TranscriptomeSAM` to obtain alignments translated into transcript coordinates, and when using *kallisto*, run `kallisto quant`, to obtain the transcript estimated counts, and `kallisto bus` and `bustools text` to get the equivalence classes.
 
 The file [README](https://github.com/SimoneTiberi/BANDITS/blob/master/README.md) provides three pipelines for aligning reads with *salmon*, *kallisto* and *STAR*.
 
@@ -242,6 +241,8 @@ kallisto_equiv_classes = file.path(data_dir, "kallisto", sample_names, "pseudoal
 kallisto_equiv_counts  = file.path(data_dir, "kallisto", sample_names, "pseudoalignments.tsv")
 file.exists(kallisto_equiv_classes); file.exists(kallisto_equiv_counts)
 ```
+
+Note that, with the new version of `kallisto bustools`, the `.ec` and `.tsv` files are named `matrix.ec` and `bus.tsv`.
 
 Warning: as above, the sample names in `kallisto_equiv_classes` and `kallisto_equiv_classes` must have the same order as those in the design object, containted in `samples_design`.
 ```{r check_same_order_kallisto}

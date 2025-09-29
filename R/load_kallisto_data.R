@@ -62,8 +62,15 @@ kallisto_read_eq_classes = function(X, sep, kallisto_equiv_classes, kallisto_equ
   ecs.s = strsplit(ecs,",",fixed=TRUE)
   
   tsv = fread(kallisto_equiv_counts[[X]], sep = "\t", quote = "", header = FALSE)
-  cnt = as.integer(tsv$V2)
   
+  sel_col = as.integer(ncol(tsv))
+  if(sel_col == 2){
+    cnt = as.integer(tsv$V2)
+  }else{
+    cnt = as.integer(unlist(tsv$V3))
+    cnt = table(cnt)
+  }
+
   trans = lapply(ecs.s, function(u) 1+as.integer(u))
   # 1) I turn ecs.s from character to numeric and 2) I add 1 because indexes in ecs.s start from 0.
   
@@ -92,7 +99,14 @@ kallisto_read_eq_classes_filteringTranscripts = function(X, transcripts_to_keep,
   ecs.s = strsplit(ecs,",",fixed=TRUE)
   
   tsv = fread(kallisto_equiv_counts[[X]], sep = "\t", quote = "", header = FALSE)
-  cnt = as.integer(tsv$V2)
+  
+  sel_col = as.integer(ncol(tsv))
+  if(sel_col == 2){
+    cnt = as.integer(tsv$V2)
+  }else{
+    cnt = as.integer(unlist(tsv$V3))
+    cnt = table(cnt)
+  }
   
   trans = lapply(ecs.s, function(u) 1+as.integer(u))
   trans = lapply(trans, as.integer)
